@@ -28,7 +28,6 @@ function Header({isLogin, handleSearch, handleError}) {
     handleSearch(searchValue);
   }, [searchValue]);
 
-  //search input validation to ensure query is not empty or contains white space
   const handleSearchInput = () => {
     const trimmedInput = input.trim();
     if (!input || trimmedInput === "") {
@@ -55,7 +54,6 @@ function Header({isLogin, handleSearch, handleError}) {
           justifyContent: "space-between",
         }}
       >
-        {/* show a larger title for desktop and a smaller title for mobile */}
         <Box sx={{display: {xs: "none", md: "flex"}}} className="desktop-title">
           <Typography
             noWrap

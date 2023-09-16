@@ -27,13 +27,7 @@ function DisplayResults({
   return (
     <>
       <Grid>
-        {!keyword ? (
-          <Grid item>
-            <Typography variant="h4">
-              Welcome back! What would you like to search today?
-            </Typography>
-          </Grid>
-        ) : news.length === 0 && !isLoading ? (
+        {news.length === 0 && !isLoading ? (
           <Grid item>
             <Typography variant="h4">
               Sorry, we could not find any news for your search
@@ -41,7 +35,11 @@ function DisplayResults({
           </Grid>
         ) : (
           <Grid item alignItems="center" justifyContent="center">
-            <Typography variant="h6">Latest news for '{keyword}':</Typography>
+            {!keyword ? (
+              <Typography variant="h6">Latest news today:</Typography>
+            ) : (
+              <Typography variant="h6">Latest news for '{keyword}':</Typography>
+            )}
             <Grid
               container
               rowSpacing={1}
@@ -60,8 +58,7 @@ function DisplayResults({
               justifyContent="center"
               sx={{mt: 1}}
             >
-              {/* load more button is disabled when there are no more results to load */}
-              {!isLoading && (
+              {!isLoading && keyword && (
                 <CustomButton
                   variant="contained"
                   disabled={noMoreNews}

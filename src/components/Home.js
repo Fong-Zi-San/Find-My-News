@@ -5,6 +5,11 @@ import MyFavouritesPanel from "./MyFavouritesPanel";
 import DisplayResults from "./DisplayResults";
 import Header from "./Header";
 import ".././styles/Home.css";
+// import dotenv from "dotenv";
+
+// dotenv.config();
+
+const API_KEY = "7078a6114e254c1e87ffc7fd5e1b9b51";
 
 function Home({isLogin}) {
   const [username, setUsername] = useState("");
@@ -18,12 +23,14 @@ function Home({isLogin}) {
     () => JSON.parse(localStorage.getItem(`${username}'s favourites`)) || []
   );
 
+  console.log(process.env.REACT_APP_API_KEY);
+
   const fetchData = useCallback(() => {
     setIsLoading(true);
     setNoMoreNews(false);
     axios
       .get(
-        `https://newsapi.org/v2/everything?apiKey=7078a6114e254c1e87ffc7fd5e1b9b51&Q=${keyword}&searchIn=title&language=en&sortBy=publishedAt&pageSize=12&page=${page}`
+        `https://newsapi.org/v2/everything?apiKey=${API_KEY}&Q=${keyword}&searchIn=title&language=en&sortBy=publishedAt&pageSize=12&page=${page}`
       )
       .then((response) => {
         setNews((prevNews) => [...prevNews, ...response.data.articles]);
@@ -43,6 +50,24 @@ function Home({isLogin}) {
       fetchData();
     }
   }, [fetchData]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    setNoMoreNews(false);
+    async function fetchDefaultData() {
+      try {
+        const response = await axios.get(
+          `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}&pageSize=12`
+        );
+        setNews(response.data.articles);
+        setIsLoading(false);
+      } catch (error) {
+        console.log("Error fetching data", error);
+        setIsLoading(false);
+      }
+    }
+    fetchDefaultData();
+  }, []);
 
   const handleSearch = (searchValue) => {
     setNews([]);
@@ -105,7 +130,6 @@ function Home({isLogin}) {
             Please enter a valid search keyword
           </Alert>
         )}
-        {/* Loading progress bar is placed here rather than in DisplayResults so it can be seen when user has scrolled down (ie clicking load more button at the bottom of the screen) */}
         {isLoading && <LinearProgress color="primary" />}
 
         <Grid container direction="row" className="home-page">

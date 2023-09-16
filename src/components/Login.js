@@ -26,18 +26,19 @@ function Login({isLogin}) {
 
   const handleLogin = () => {
     if (!username || !password) {
-      setErrorMessage("missing"); //show error if no username and/or password input
+      setErrorMessage("missing");
     } else {
       const matchingAccount = database.find(
         (account) =>
           account.username === username && account.password === password
       );
+
       if (matchingAccount) {
-        isLogin(username); //login only when correct username (case sensitive) and password match database's
+        isLogin(username);
         setIsLoginInProgress(true);
         navigate("/home");
       } else {
-        setErrorMessage("invalid"); //show error message if password does not match username's in database or if username does not exist
+        setErrorMessage("invalid");
       }
     }
   };
