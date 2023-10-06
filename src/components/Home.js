@@ -5,11 +5,6 @@ import MyFavouritesPanel from "./MyFavouritesPanel";
 import DisplayResults from "./DisplayResults";
 import Header from "./Header";
 import ".././styles/Home.css";
-// import dotenv from "dotenv";
-
-// dotenv.config();
-
-const API_KEY = "7078a6114e254c1e87ffc7fd5e1b9b51";
 
 function Home({isLogin}) {
   const [username, setUsername] = useState("");
@@ -23,14 +18,12 @@ function Home({isLogin}) {
     () => JSON.parse(localStorage.getItem(`${username}'s favourites`)) || []
   );
 
-  console.log(process.env.REACT_APP_API_KEY);
-
   const fetchData = useCallback(() => {
     setIsLoading(true);
     setNoMoreNews(false);
     axios
       .get(
-        `https://newsapi.org/v2/everything?apiKey=${API_KEY}&Q=${keyword}&searchIn=title&language=en&sortBy=publishedAt&pageSize=12&page=${page}`
+        `https://newsapi.org/v2/everything?apiKey=${process.env.REACT_APP_API_KEY}&Q=${keyword}&searchIn=title&language=en&sortBy=publishedAt&pageSize=12&page=${page}`
       )
       .then((response) => {
         setNews((prevNews) => [...prevNews, ...response.data.articles]);
@@ -57,7 +50,7 @@ function Home({isLogin}) {
     async function fetchDefaultData() {
       try {
         const response = await axios.get(
-          `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}&pageSize=12`
+          `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.REACT_APP_API_KEY}&pageSize=12`
         );
         setNews(response.data.articles);
         setIsLoading(false);
