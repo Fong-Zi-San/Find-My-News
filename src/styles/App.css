@@ -1,0 +1,12 @@
+body {
+  position: absolute;
+  min-height: 100vh;
+  min-width: 100%;
+  background-image: url(".././image/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 75%;
+  font-family: "Roboto", sans-serif;
+  color: #d7e7f8;
+}

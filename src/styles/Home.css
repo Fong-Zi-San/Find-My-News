@@ -1,0 +1,32 @@
+.home-page-container {
+  position: relative;
+  margin-top: 64px;
+  height: 90vh;
+  min-width: 100%;
+}
+
+.home-page {
+  height: 90vh;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.favourites-container {
+  position: relative;
+  background-color: rgba(48, 25, 143, 0.85);
+  padding: 15px;
+  min-height: 100%;
+}
+
+.results-container {
+  padding: 15px;
+}
+
+/* style below applies to searchbar of Header */
+.search-bar {
+  padding: 2px 10px;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  min-width: 60px;
+}
