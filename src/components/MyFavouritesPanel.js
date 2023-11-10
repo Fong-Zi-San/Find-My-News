@@ -22,7 +22,11 @@ function MyFavouritesPanel({favs, clearFavourites}) {
         <Typography>Favourites:</Typography>
       </Grid>
       <Grid item>
-        <CustomButton variant="contained" onClick={clearFavourites}>
+        <CustomButton
+          variant="contained"
+          onClick={clearFavourites}
+          disabled={favs.length === 0}
+        >
           Clear all
         </CustomButton>
       </Grid>
